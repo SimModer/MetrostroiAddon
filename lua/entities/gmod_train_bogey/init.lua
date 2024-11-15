@@ -392,15 +392,11 @@ function ENT:CheckContact(pos,dir,id,cpos)
                 traceEnt:SetPos(self:LocalToWorld(cpos))
                 traceEnt:SetAngles(self:GetAngles())
                 traceEnt.Coupled = self
+                traceEnt.ConnectorID = id
                 sound.Play("udochka_connect.wav",traceEnt:GetPos())
                 self.Connectors[id] = traceEnt
                 DropEntityIfHeld(traceEnt)
             end
-        end
-        return false
-    elseif self.Connectors[id] == traceEnt then
-        if traceEnt.Coupled == nil then
-            self.Connectors[id] = nil
         end
         return false
     elseif traceEnt:GetClass() == "player" and self.Voltage > 40 then
