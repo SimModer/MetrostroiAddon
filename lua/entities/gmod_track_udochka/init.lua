@@ -22,13 +22,15 @@ local function removeWeldBetweenEnts(ent1,ent2)
 	end
 end
 function ENT:Use(ply)
-	if self.Coupled then
+	if IsValid(self.Coupled) then
 		sound.Play("buttons/lever8.wav",self:GetPos())
 		removeWeldBetweenEnts(self,self.Coupled)
 		removeWeldBetweenEnts(self.Coupled,self)
 
+		self.Coupled.Connectors[self.ConnectorID] = nil
 		self.Timer = CurTime()+2
 	end
+	self.ConnectorID = nil
 	self.Coupled = nil
 	if ( self:IsPlayerHolding() ) then return end
 	if ply.PickupObject then ply:PickupObject( self ) end
