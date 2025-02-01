@@ -392,16 +392,10 @@ function ENT:CheckContact(pos,dir,id,cpos)
                 traceEnt:SetPos(self:LocalToWorld(cpos))
                 traceEnt:SetAngles(self:GetAngles())
                 traceEnt.Coupled = self
+                traceEnt.ConnectorID = id
                 sound.Play("udochka_connect.wav",traceEnt:GetPos())
                 self.Connectors[id] = traceEnt
                 DropEntityIfHeld(traceEnt)
-                --[[timer.Simple(0,function()
-                    if not IsValid(traceEnt) or not traceEnt:IsPlayerHolding()  then return end
-                    traceEnt:ForcePlayerDrop()
-                    if traceEnt.LastPickup and traceEnt.LastPickup:IsPlayer()  then
-                        traceEnt.LastPickup:DropObject()
-                    end
-                end)]]
             end
         end
         return false
